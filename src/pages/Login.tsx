@@ -8,6 +8,7 @@ import Button from "../components/auth/Button";
 import FormBox from "../components/auth/FormBox";
 import { Input } from "../components/auth/Input";
 import Separator from "../components/auth/Separator";
+import { HeaderContainer, SubTitle } from "../components/shared/shared";
 import routes from "../routes";
 
 const GoogleLogin = styled.div`
@@ -26,9 +27,12 @@ const Login = () => {
   return (
     <AuthLayout>
       <FormBox>
-        <FontAwesome>
-          <FontAwesomeIcon icon={faBuilding} size="3x" />
-        </FontAwesome>
+        <HeaderContainer>
+          <FontAwesome>
+            <FontAwesomeIcon icon={faBuilding} size="3x" />
+          </FontAwesome>
+          <SubTitle>동네에 오신걸 환영합니다</SubTitle>
+        </HeaderContainer>
         <form>
           <Input type="text" placeholder="아이디" />
           <Input type="password" placeholder="비밀번호" />
