@@ -8,6 +8,7 @@ import Button from "../components/auth/Button";
 import FormBox from "../components/auth/FormBox";
 import { Input } from "../components/auth/Input";
 import Separator from "../components/auth/Separator";
+import PageTitle from "../components/PageTitle";
 import { HeaderContainer, SubTitle } from "../components/shared/shared";
 import routes from "../routes";
 
@@ -26,6 +27,7 @@ const FontAwesome = styled.div`
 const Login = () => {
   return (
     <AuthLayout>
+      <PageTitle title="로그인" />
       <FormBox>
         <HeaderContainer>
           <FontAwesome>

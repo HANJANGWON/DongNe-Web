@@ -6,7 +6,7 @@ import BottomBox from "../components/auth/BottomBox";
 import Button from "../components/auth/Button";
 import FormBox from "../components/auth/FormBox";
 import { Input } from "../components/auth/Input";
-import Separator from "../components/auth/Separator";
+import PageTitle from "../components/PageTitle";
 import { HeaderContainer, SubTitle } from "../components/shared/shared";
 import routes from "../routes";
 
@@ -17,6 +17,7 @@ const FontAwesome = styled.div`
 const SignUp = () => {
   return (
     <AuthLayout>
+      <PageTitle title="회원가입" />
       <FormBox>
         <HeaderContainer>
           <FontAwesome>
