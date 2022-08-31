@@ -1,8 +1,10 @@
+import { gql, useMutation } from "@apollo/client";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faBuilding } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import { logUserIn } from "../apollo";
 import AuthLayout from "../components/auth/AuthLayout";
 import BottomBox from "../components/auth/BottomBox";
 import Button from "../components/auth/Button";
@@ -26,12 +28,54 @@ const FontAwesome = styled.div`
   color: ${(props) => props.theme.accent};
 `;
 
+const LOGIN_MUTATION = gql`
+  mutation login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      ok
+      token
+      error
+    }
+  }
+`;
+
 const Login = () => {
-  const { register, handleSubmit, formState } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState,
+    getValues,
+    setError,
+    clearErrors,
+  } = useForm({
     mode: "onChange",
   });
+  const onCompleted = (data: any) => {
+    const {
+      login: { ok, error, token },
+    } = data;
+    if (!ok) {
+      return setError("result", {
+        message: error,
+      });
+    }
+    if (token) {
+      logUserIn(token);
+    }
+  };
+  const [login, { loading }] = useMutation(LOGIN_MUTATION, {
+    onCompleted,
+  });
   const onSubmitValid = (data: any) => {
-    //console.log(data);
+    if (loading) {
+      return;
+    }
+    const { username, password } = getValues();
+    login({
+      variables: {
+        username,
+        password,
+      },
+    });
   };
 
   return (
@@ -48,6 +92,9 @@ const Login = () => {
           <Input
             {...register("username", {
               required: "아이디를 입력해 주세요.",
+              onChange() {
+                clearErrors("result");
+              },
             })}
             name="username"
             type="text"
@@ -55,13 +102,22 @@ const Login = () => {
           />
 
           <Input
-            {...register("password", { required: "비밀번호를 입력해주세요." })}
+            {...register("password", {
+              required: "비밀번호를 입력해주세요.",
+              onChange() {
+                clearErrors("result");
+              },
+            })}
             name="password"
             type="password"
             placeholder="비밀번호"
           />
 
-          <Button type="submit" value="로그인" disabled={!formState.isValid} />
+          <Button
+            type="submit"
+            value={loading ? "로딩중..." : "로그인"}
+            disabled={!formState.isValid || loading}
+          />
         </form>
         <Separator />
         <FormError
@@ -71,6 +127,7 @@ const Login = () => {
               : formState.errors?.password?.message
           }
         />
+        <FormError message={formState.errors?.result?.message} />
         <GoogleLogin>
           <FontAwesomeIcon icon={faGoogle} />
           <span>Google로 로그인</span>
