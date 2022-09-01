@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 type FormErrorProps = {
-  message?: any;
+  message?: string;
 };
 
 const SFormError = styled.span`

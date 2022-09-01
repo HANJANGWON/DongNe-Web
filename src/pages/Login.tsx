@@ -3,6 +3,7 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faBuilding } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { logUserIn } from "../apollo";
 import AuthLayout from "../components/auth/AuthLayout";
@@ -11,10 +12,23 @@ import Button from "../components/auth/Button";
 import FormBox from "../components/auth/FormBox";
 import FormError from "../components/auth/FormError";
 import { Input } from "../components/auth/Input";
+import Notification from "../components/auth/Notification";
 import Separator from "../components/auth/Separator";
 import PageTitle from "../components/PageTitle";
 import { HeaderContainer, SubTitle } from "../components/shared/shared";
 import routes from "../routes";
+
+interface LoginState {
+  username?: string;
+  password?: string;
+  message?: string;
+}
+
+interface FormData {
+  username: string;
+  password: string;
+  loginResult?: string;
+}
 
 const GoogleLogin = styled.div`
   color: #385285;
@@ -39,6 +53,8 @@ const LOGIN_MUTATION = gql`
 `;
 
 const Login = () => {
+  const location = useLocation();
+  const state = location.state as LoginState | null;
   const {
     register,
     handleSubmit,
@@ -46,15 +62,19 @@ const Login = () => {
     getValues,
     setError,
     clearErrors,
-  } = useForm({
+  } = useForm<FormData>({
     mode: "onChange",
+    defaultValues: {
+      username: state?.username || "",
+      password: state?.password || "",
+    },
   });
   const onCompleted = (data: any) => {
     const {
       login: { ok, error, token },
     } = data;
     if (!ok) {
-      return setError("result", {
+      return setError("loginResult", {
         message: error,
       });
     }
@@ -69,7 +89,7 @@ const Login = () => {
     if (loading) {
       return;
     }
-    const { username, password } = getValues();
+    const { username, password }: FormData = getValues();
     login({
       variables: {
         username,
@@ -88,12 +108,13 @@ const Login = () => {
           </FontAwesome>
           <SubTitle>동네에 오신걸 환영합니다</SubTitle>
         </HeaderContainer>
+        <Notification message={state?.message} />
         <form onSubmit={handleSubmit(onSubmitValid)}>
           <Input
             {...register("username", {
               required: "아이디를 입력해 주세요.",
               onChange() {
-                clearErrors("result");
+                clearErrors("loginResult");
               },
             })}
             name="username"
@@ -105,7 +126,7 @@ const Login = () => {
             {...register("password", {
               required: "비밀번호를 입력해주세요.",
               onChange() {
-                clearErrors("result");
+                clearErrors("loginResult");
               },
             })}
             name="password"
@@ -127,7 +148,7 @@ const Login = () => {
               : formState.errors?.password?.message
           }
         />
-        <FormError message={formState.errors?.result?.message} />
+        <FormError message={formState.errors?.loginResult?.message} />
         <GoogleLogin>
           <FontAwesomeIcon icon={faGoogle} />
           <span>Google로 로그인</span>
