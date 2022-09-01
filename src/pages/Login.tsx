@@ -10,7 +10,7 @@ import AuthLayout from "../components/auth/AuthLayout";
 import BottomBox from "../components/auth/BottomBox";
 import Button from "../components/auth/Button";
 import FormBox from "../components/auth/FormBox";
-import FormError from "../components/auth/FormError";
+import { LoginFormError } from "../components/auth/FormError";
 import { Input } from "../components/auth/Input";
 import Notification from "../components/auth/Notification";
 import Separator from "../components/auth/Separator";
@@ -141,14 +141,14 @@ const Login = () => {
           />
         </form>
         <Separator />
-        <FormError
+        <LoginFormError
           message={
             formState.errors?.username?.message
               ? formState.errors?.username?.message
               : formState.errors?.password?.message
           }
         />
-        <FormError message={formState.errors?.loginResult?.message} />
+        <LoginFormError message={formState.errors?.loginResult?.message} />
         <GoogleLogin>
           <FontAwesomeIcon icon={faGoogle} />
           <span>Google로 로그인</span>

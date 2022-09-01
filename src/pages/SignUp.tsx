@@ -8,6 +8,7 @@ import AuthLayout from "../components/auth/AuthLayout";
 import BottomBox from "../components/auth/BottomBox";
 import Button from "../components/auth/Button";
 import FormBox from "../components/auth/FormBox";
+import { SignUpFormError } from "../components/auth/FormError";
 import { Input } from "../components/auth/Input";
 import PageTitle from "../components/PageTitle";
 import { HeaderContainer, SubTitle } from "../components/shared/shared";
@@ -123,6 +124,14 @@ const SignUp = () => {
             disabled={!formState.isValid || loading}
           />
         </form>
+        <SignUpFormError
+          message={
+            formState.errors?.username?.message ||
+            formState.errors?.password?.message ||
+            formState.errors?.fullName?.message ||
+            formState.errors?.email?.message
+          }
+        />
       </FormBox>
       <BottomBox
         cta="계정이 있으신가요?"
