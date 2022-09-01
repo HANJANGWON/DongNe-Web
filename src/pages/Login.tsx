@@ -31,7 +31,7 @@ interface FormData {
 }
 
 const GoogleLogin = styled.div`
-  color: #385285;
+  color: ${(props) => props.theme.googleLogin};
   span {
     margin-left: 10px;
     font-weight: 600;

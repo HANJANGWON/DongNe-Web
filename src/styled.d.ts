@@ -6,5 +6,8 @@ declare module "styled-components" {
     bgColor?: string;
     accent?: string;
     borderColor?: string;
+    buttonFontColor?: string;
+    googleLogin?: string;
+    FatLink?: string;
   }
 }
