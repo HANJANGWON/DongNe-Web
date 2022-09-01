@@ -3,6 +3,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { client, darkModeVar, isLoggedInVar } from "./apollo";
+import Layout from "./components/shared/Layout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
@@ -22,7 +23,15 @@ function App() {
             <Routes>
               <Route
                 path={routes.home}
-                element={isLoggedIn ? <Home /> : <Login />}
+                element={
+                  isLoggedIn ? (
+                    <Layout>
+                      <Home />
+                    </Layout>
+                  ) : (
+                    <Login />
+                  )
+                }
               />
               <Route
                 path={routes.signUp}
