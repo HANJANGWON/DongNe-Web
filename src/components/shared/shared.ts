@@ -22,3 +22,7 @@ export const HeaderContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
+export const FatText = styled.span`
+  font-weight: 600;
+`;

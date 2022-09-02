@@ -12,7 +12,7 @@ export const Input = styled.input`
     font-size: 12px;
   }
   &:focus {
-    border-color: ${(props) => props.theme.borderColor};
+    border-color: ${(props) => props.theme.borderAccent};
     background-color: ${(props) => props.theme.bgColor};
   }
 `;

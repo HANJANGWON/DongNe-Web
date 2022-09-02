@@ -9,5 +9,6 @@ declare module "styled-components" {
     buttonFontColor?: string;
     googleLogin?: string;
     FatLink?: string;
+    borderAccent?: string;
   }
 }

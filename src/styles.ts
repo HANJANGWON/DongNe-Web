@@ -9,6 +9,7 @@ export const lightTheme: DefaultTheme = {
   buttonFontColor: "white",
   googleLogin: "#385285",
   FatLink: "rgb(142, 142, 142)",
+  borderAccent: "#2c2c2c",
 };
 
 export const darkTheme: DefaultTheme = {
@@ -29,6 +30,7 @@ export const GlobalStyles = createGlobalStyle`
     input {
       all:unset;
     }
+  
     body { 
         background-color: ${(props) => props.theme.bgColor};
         font-size: 14px;
