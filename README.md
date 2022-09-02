@@ -2,4 +2,6 @@
 
 - [x] Router
 - [x] Styles
-- [ ] Login
+- [x] Login
+- [x] SignUp
+- [ ] Header
