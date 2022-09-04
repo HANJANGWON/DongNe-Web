@@ -8,8 +8,10 @@ import {
 import { faHeart as SolidHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
+import { Comment } from "../../generated/graphql";
 import Avatar from "../shared/Avatar";
 import { FatText } from "../shared/shared";
+import Comments from "./Comments";
 
 interface PostProps {
   id: number;
@@ -17,9 +19,12 @@ interface PostProps {
     avatar?: string;
     fullName: string;
   };
+  caption: string;
   file: string;
   isLiked: boolean;
   likes: number;
+  commentsNumber: number;
+  comments: Comment[];
 }
 
 const TOGGLE_LIKE_MUTATION = gql`
@@ -46,6 +51,12 @@ const PostHeader = styled.div`
 
 const FullName = styled(FatText)`
   margin-left: 15px;
+`;
+
+const Caption = styled.span`
+  margin: 20px;
+  font-size: 15px;
+  line-height: 23px;
 `;
 
 const PostFile = styled.img`
@@ -81,7 +92,21 @@ const Likes = styled(FatText)`
   display: block;
 `;
 
-const Post = ({ id, user, file, isLiked, likes }: PostProps) => {
+const CaptionContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Post = ({
+  id,
+  user,
+  file,
+  isLiked,
+  likes,
+  caption,
+  commentsNumber,
+  comments,
+}: PostProps) => {
   const updateToggleLike = (cache: any, result: any) => {
     const {
       data: {
@@ -125,6 +150,9 @@ const Post = ({ id, user, file, isLiked, likes }: PostProps) => {
         <Avatar lg url={user.avatar} />
         <FullName>{user.fullName}</FullName>
       </PostHeader>
+      <CaptionContainer>
+        <Caption>{caption}</Caption>
+      </CaptionContainer>
       <PostFile src={file} />
       <PostData>
         <PostActions>
@@ -151,6 +179,7 @@ const Post = ({ id, user, file, isLiked, likes }: PostProps) => {
           </div>
         </PostActions>
         <Likes>{`좋아요 ${likes}개`}</Likes>
+        <Comments commentsNumber={commentsNumber} comments={comments} />
       </PostData>
     </PostContainer>
   );
