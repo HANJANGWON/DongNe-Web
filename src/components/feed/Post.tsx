@@ -1,3 +1,4 @@
+import { gql, useMutation } from "@apollo/client";
 import {
   faBookmark,
   faComment,
@@ -20,6 +21,15 @@ interface PostProps {
   isLiked: boolean;
   likes: number;
 }
+
+const TOGGLE_LIKE_MUTATION = gql`
+  mutation toggleLike($id: Int!) {
+    toggleLike(id: $id) {
+      ok
+      error
+    }
+  }
+`;
 
 const PostContainer = styled.div`
   background-color: white;
@@ -63,6 +73,7 @@ const PostActions = styled.div`
 
 const PostAction = styled.div`
   margin-right: 10px;
+  cursor: pointer;
 `;
 
 const Likes = styled(FatText)`
@@ -71,6 +82,43 @@ const Likes = styled(FatText)`
 `;
 
 const Post = ({ id, user, file, isLiked, likes }: PostProps) => {
+  const updateToggleLike = (cache: any, result: any) => {
+    const {
+      data: {
+        toggleLike: { ok },
+      },
+    } = result;
+    if (ok) {
+      const fragmentId = `Post:${id}`;
+      const fragment = gql`
+        fragment BSName on Post {
+          isLiked
+          likes
+        }
+      `;
+      const result = cache.readFragment({
+        id: fragmentId,
+        fragment,
+      });
+      if ("isLiked" in result && "likes" in result) {
+        const { isLiked: cacheIsLiked, likes: cacheLikes } = result;
+        cache.writeFragment({
+          id: fragmentId,
+          fragment,
+          data: {
+            isLiked: !cacheIsLiked,
+            likes: cacheIsLiked ? cacheLikes - 1 : cacheLikes + 1,
+          },
+        });
+      }
+    }
+  };
+  const [toggleLikeMutation] = useMutation(TOGGLE_LIKE_MUTATION, {
+    variables: {
+      id,
+    },
+    update: updateToggleLike,
+  });
   return (
     <PostContainer key={id}>
       <PostHeader>
@@ -81,7 +129,11 @@ const Post = ({ id, user, file, isLiked, likes }: PostProps) => {
       <PostData>
         <PostActions>
           <div>
-            <PostAction>
+            <PostAction
+              onClick={() => {
+                toggleLikeMutation();
+              }}
+            >
               <FontAwesomeIcon
                 style={{ color: isLiked ? "tomato" : "inherit" }}
                 icon={isLiked ? SolidHeart : faHeart}
