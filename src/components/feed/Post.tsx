@@ -1,4 +1,4 @@
-import sanitizeHtml from "sanitize-html";
+import React from "react";
 import { gql, useMutation } from "@apollo/client";
 import {
   faBookmark,
@@ -13,6 +13,7 @@ import { Comment } from "../../generated/graphql";
 import Avatar from "../shared/Avatar";
 import { FatText } from "../shared/shared";
 import Comments from "./Comments";
+import { Link } from "react-router-dom";
 
 interface PostProps {
   id: number;
@@ -58,7 +59,7 @@ const Caption = styled.span`
   margin: 20px;
   font-size: 15px;
   line-height: 23px;
-  mark {
+  a {
     background-color: inherit;
     color: ${(props) => props.theme.accent};
     cursor: pointer;
@@ -117,13 +118,6 @@ const Post = ({
   commentsNumber,
   comments,
 }: PostProps) => {
-  const cleanedCaption = sanitizeHtml(
-    caption.replace(/[\d]+동/g, "<mark>$&</mark>"),
-    {
-      allowedTags: ["mark"],
-    }
-  );
-
   const updateToggleLike = (cache: any, result: any) => {
     const {
       data: {
@@ -168,11 +162,17 @@ const Post = ({
         <FullName>{user.fullName}</FullName>
       </PostHeader>
       <CaptionContainer>
-        <Caption
-          dangerouslySetInnerHTML={{
-            __html: cleanedCaption,
-          }}
-        />
+        <Caption>
+          {caption.split(" ").map((word, index) =>
+            /[\d]+동/g.test(word) ? (
+              <React.Fragment key={index}>
+                <Link to={`/dongtags/${word}`}>{word}</Link>{" "}
+              </React.Fragment>
+            ) : (
+              <React.Fragment key={index}>{word} </React.Fragment>
+            )
+          )}
+        </Caption>
       </CaptionContainer>
       <PostFile src={file} />
       <PostData>
