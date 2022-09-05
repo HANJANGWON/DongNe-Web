@@ -1,3 +1,4 @@
+import sanitizeHtml from "sanitize-html";
 import { gql, useMutation } from "@apollo/client";
 import {
   faBookmark,
@@ -57,6 +58,15 @@ const Caption = styled.span`
   margin: 20px;
   font-size: 15px;
   line-height: 23px;
+  mark {
+    background-color: inherit;
+    color: ${(props) => props.theme.accent};
+    cursor: pointer;
+    font-weight: bold;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `;
 
 const PostFile = styled.img`
@@ -107,6 +117,13 @@ const Post = ({
   commentsNumber,
   comments,
 }: PostProps) => {
+  const cleanedCaption = sanitizeHtml(
+    caption.replace(/[\d]+동/g, "<mark>$&</mark>"),
+    {
+      allowedTags: ["mark"],
+    }
+  );
+
   const updateToggleLike = (cache: any, result: any) => {
     const {
       data: {
@@ -151,7 +168,11 @@ const Post = ({
         <FullName>{user.fullName}</FullName>
       </PostHeader>
       <CaptionContainer>
-        <Caption>{caption}</Caption>
+        <Caption
+          dangerouslySetInnerHTML={{
+            __html: cleanedCaption,
+          }}
+        />
       </CaptionContainer>
       <PostFile src={file} />
       <PostData>

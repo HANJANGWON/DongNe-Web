@@ -24,6 +24,7 @@
     "react-hook-form": "^7.34.2",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "sanitize-html": "^2.7.1",
     "styled-components": "^5.3.5",
     "styled-reset": "^4.4.2",
     "typescript": "^4.8.2",
@@ -54,6 +55,9 @@
     ]
   },
   "devDependencies": {
-    "@types/styled-components": "^5.1.26"
+    "@types/sanitize-html": "^2.6.2",
+    "@types/styled-components": "^5.1.26",
+    "i": "^0.3.7",
+    "npm": "^8.19.1"
   }
 }
