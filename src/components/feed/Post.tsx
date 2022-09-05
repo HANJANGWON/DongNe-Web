@@ -193,7 +193,11 @@ const Post = ({
           </div>
         </PostActions>
         <Likes>{`좋아요 ${likes}개`}</Likes>
-        <Comments commentsNumber={commentsNumber} comments={comments} />
+        <Comments
+          postId={id}
+          commentsNumber={commentsNumber}
+          comments={comments}
+        />
       </PostData>
     </PostContainer>
   );

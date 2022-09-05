@@ -7,7 +7,7 @@ interface CommentContainerProps {
 }
 
 const SCommentContainer = styled.div`
-  margin-top: 20px;
+  margin-bottom: 7px;
 `;
 
 const CommentCaption = styled.span`
