@@ -72,17 +72,34 @@ const Comments = ({
           ...userData.me,
         },
       };
+      const newCacheComment = cache.writeFragment({
+        data: newComment,
+        fragment: gql`
+          fragment BSName on Comment {
+            id
+            createdAt
+            isMine
+            payload
+            user {
+              fullName
+              avatar
+            }
+          }
+        `,
+      });
+
       cache.modify({
         id: `Post:${postId}`,
         fields: {
           comments(prev: any) {
-            return [...prev, newComment];
+            return [...prev, newCacheComment];
           },
           commentNumber(prev: number) {
             return prev + 1;
           },
         },
       });
+      console.log(cache);
     }
   };
   const [createCommentMutation, { loading }] = useMutation(
