@@ -3,7 +3,7 @@ import { Comment } from "../../generated/graphql";
 import CommentContainer from "./Comment";
 
 const CommentsContainer = styled.div`
-  margin-top: 20px;
+  padding-left: 15px;
 `;
 
 const CommentCount = styled.span`

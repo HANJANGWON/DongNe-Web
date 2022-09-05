@@ -125,28 +125,21 @@ const Post = ({
       },
     } = result;
     if (ok) {
-      const fragmentId = `Post:${id}`;
-      const fragment = gql`
-        fragment BSName on Post {
-          isLiked
-          likes
-        }
-      `;
-      const result = cache.readFragment({
-        id: fragmentId,
-        fragment,
-      });
-      if ("isLiked" in result && "likes" in result) {
-        const { isLiked: cacheIsLiked, likes: cacheLikes } = result;
-        cache.writeFragment({
-          id: fragmentId,
-          fragment,
-          data: {
-            isLiked: !cacheIsLiked,
-            likes: cacheIsLiked ? cacheLikes - 1 : cacheLikes + 1,
+      const postId = `Post:${id}`;
+      cache.modify({
+        id: postId,
+        fields: {
+          isLiked(prev: boolean) {
+            return !prev;
           },
-        });
-      }
+          likes(prev: number, { readField }: any) {
+            if (readField("isLiked")) {
+              return prev - 1;
+            }
+            return prev + 1;
+          },
+        },
+      });
     }
   };
   const [toggleLikeMutation] = useMutation(TOGGLE_LIKE_MUTATION, {
