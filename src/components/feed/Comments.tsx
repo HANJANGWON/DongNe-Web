@@ -94,12 +94,11 @@ const Comments = ({
           comments(prev: any) {
             return [...prev, newCacheComment];
           },
-          commentNumber(prev: number) {
+          commentsNumber(prev: number) {
             return prev + 1;
           },
         },
       });
-      console.log(cache);
     }
   };
   const [createCommentMutation, { loading }] = useMutation(
@@ -126,8 +125,11 @@ const Comments = ({
       {comments?.map((comment) => (
         <CommentContainer
           key={comment.id}
+          id={comment.id}
+          postId={postId}
           user={comment.user.fullName}
           payload={comment.payload}
+          isMine={comment.isMine}
         />
       ))}
       <PostCommentContainer>
