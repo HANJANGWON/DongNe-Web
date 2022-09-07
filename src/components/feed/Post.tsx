@@ -19,6 +19,7 @@ interface PostProps {
   id: number;
   user: {
     avatar?: string;
+    username: string;
     fullName: string;
   };
   caption: string;
@@ -51,7 +52,7 @@ const PostHeader = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
 `;
 
-const FullName = styled(FatText)`
+const PostUsername = styled(FatText)`
   margin-left: 15px;
 `;
 
@@ -151,8 +152,12 @@ const Post = ({
   return (
     <PostContainer key={id}>
       <PostHeader>
-        <Avatar lg url={user.avatar} />
-        <FullName>{user.fullName}</FullName>
+        <Link to={`/users/${user?.username}`}>
+          <Avatar lg url={user.avatar} />
+        </Link>
+        <Link to={`/users/${user?.username}`}>
+          <PostUsername>{user.username}</PostUsername>
+        </Link>
       </PostHeader>
       <CaptionContainer>
         <Caption>

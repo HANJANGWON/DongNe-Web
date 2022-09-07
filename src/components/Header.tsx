@@ -1,9 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBuilding,
-  faCompass,
-  faUser,
-} from "@fortawesome/free-regular-svg-icons";
+import { faBuilding, faCompass } from "@fortawesome/free-regular-svg-icons";
 import styled from "styled-components";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { useReactiveVar } from "@apollo/client";
@@ -69,7 +65,9 @@ export const Header = () => {
               </Icon>
 
               <Icon>
-                <Avatar url={data?.me?.avatar} />
+                <Link to={`/users/${data?.me?.username}`}>
+                  <Avatar url={data?.me?.avatar} />
+                </Link>
               </Icon>
             </IconsContainer>
           ) : (

@@ -7,6 +7,7 @@ import Layout from "./components/shared/Layout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import Profile from "./pages/Profile";
 import SignUp from "./pages/SignUp";
 import routes from "./routes";
 import { darkTheme, GlobalStyles, lightTheme } from "./styles";
@@ -37,6 +38,7 @@ function App() {
                 path={routes.signUp}
                 element={!isLoggedIn ? <SignUp /> : null}
               />
+              <Route path={`/users/:username`} element={<Profile />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Router>

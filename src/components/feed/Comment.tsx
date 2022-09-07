@@ -1,6 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 import { FatText } from "../shared/shared";
@@ -37,6 +38,7 @@ const CommentContainer = ({
   payload,
 }: CommentContainerProps) => {
   const updateDeleteComment = (cache: any, result: any) => {
+    console.log(cache);
     const {
       data: {
         deleteComment: { ok },
@@ -63,7 +65,9 @@ const CommentContainer = ({
   };
   return (
     <SCommentContainer>
-      <FatText>{user}</FatText>
+      <Link to={`/users/${user}`}>
+        <FatText>{user}</FatText>
+      </Link>
       <CommentCaption>{payload}</CommentCaption>
       {isMine ? (
         <FontAwesomeIcon

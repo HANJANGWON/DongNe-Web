@@ -81,7 +81,7 @@ const Comments = ({
             isMine
             payload
             user {
-              fullName
+              username
               avatar
             }
           }
@@ -127,7 +127,7 @@ const Comments = ({
           key={comment.id}
           id={comment.id}
           postId={postId}
-          user={comment.user.fullName}
+          user={comment.user.username}
           payload={comment.payload}
           isMine={comment.isMine}
         />
