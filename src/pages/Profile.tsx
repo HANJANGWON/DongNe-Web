@@ -3,6 +3,8 @@ import { faComment, faHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import PageTitle from "../components/PageTitle";
+import Button from "../components/shared/Button";
 import { FatText } from "../components/shared/shared";
 import { POST_FRAGMENT } from "../fragments";
 
@@ -51,7 +53,8 @@ const Username = styled.h3`
 `;
 const Row = styled.div`
   margin-bottom: 20px;
-  font-size: 16px;
+  font-size: 15px;
+  display: felx;
 `;
 const List = styled.ul`
   display: flex;
@@ -109,21 +112,43 @@ const Column = styled.div`
   margin: 50px 0px 50px 130px;
 `;
 
+const ProfileBtn = styled(Button).attrs({
+  as: "div",
+})`
+  margin-left: 20px;
+  margin-top: 0px;
+  width: 50%;
+`;
+
 const Profile = () => {
   const { username } = useParams<ProfileParams>();
-  const { data } = useQuery(SEE_PROFILE_QUERY, {
+  const { data, loading } = useQuery(SEE_PROFILE_QUERY, {
     variables: {
       username,
     },
   });
-
+  const getButton = (seeProfile: any) => {
+    const { isMe, isFollowing } = seeProfile;
+    if (isMe) {
+      return <ProfileBtn>프로필 수정</ProfileBtn>;
+    }
+    if (isFollowing) {
+      return <ProfileBtn>Unfollow</ProfileBtn>;
+    } else {
+      return <ProfileBtn>Follow</ProfileBtn>;
+    }
+  };
   return (
     <div>
+      <PageTitle
+        title={loading ? "로딩중..." : `${data?.seeProfile?.username}의 프로필`}
+      />
       <Header>
         <Avatar src={data?.seeProfile?.avatar} />
         <Column>
           <Row>
             <Username>{data?.seeProfile?.username}</Username>
+            {data?.seeProfile ? getButton(data.seeProfile) : null}
           </Row>
           <Row>
             <List>
@@ -145,7 +170,7 @@ const Profile = () => {
       </Header>
       <Grid>
         {data?.seeProfile?.posts.map((post: any) => (
-          <Post bg={post.file}>
+          <Post key={post.id} bg={post.file}>
             <Icons>
               <Icon>
                 <FontAwesomeIcon icon={faHeart} />

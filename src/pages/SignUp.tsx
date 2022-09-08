@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import AuthLayout from "../components/auth/AuthLayout";
 import BottomBox from "../components/auth/BottomBox";
-import Button from "../components/auth/Button";
+import Button from "../components/shared/Button";
 import FormBox from "../components/auth/FormBox";
 import { SignUpFormError } from "../components/auth/FormError";
 import { Input } from "../components/auth/Input";
@@ -42,7 +42,7 @@ const SignUp = () => {
   const onCompleted = (data: any) => {
     const { username, password } = getValues();
     const {
-      createAccount: { ok, error },
+      createAccount: { ok },
     } = data;
     if (!ok) {
       return;
