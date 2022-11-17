@@ -32,7 +32,7 @@ interface PostProps {
 }
 
 const PostContainer = styled.div`
-  background-color: white;
+  background-color: ${(props) => props.theme.bgColor};
   border: 1px solid ${(props) => props.theme.borderColor};
   margin-bottom: 20px;
   max-width: 615px;

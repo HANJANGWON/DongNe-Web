@@ -211,12 +211,12 @@ const Profile = () => {
             <List>
               <Item>
                 <span>
-                  <Value>{data?.seeProfile?.totalFollowers}</Value> followers
+                  <Value>{data?.seeProfile?.totalFollowers}</Value> 팔로워
                 </span>
               </Item>
               <Item>
                 <span>
-                  <Value>{data?.seeProfile?.totalFollowing}</Value> following
+                  <Value>{data?.seeProfile?.totalFollowing}</Value> 팔로잉
                 </span>
               </Item>
             </List>

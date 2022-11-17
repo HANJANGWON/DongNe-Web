@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import routes from "../routes";
 import useUser from "../hooks/useUser";
 import Avatar from "./shared/Avatar";
+import DarkMode from "./shared/DarkModeBtn";
 
 const SHeader = styled.header`
   width: 100%;
@@ -65,7 +66,9 @@ export const Header = () => {
               <Icon>
                 <FontAwesomeIcon icon={faCompass} size="lg" />
               </Icon>
-
+              <Icon>
+                <DarkMode />
+              </Icon>
               <Icon>
                 <Link to={`/users/${data?.me?.username}`}>
                   <Avatar url={data?.me?.avatar} />
