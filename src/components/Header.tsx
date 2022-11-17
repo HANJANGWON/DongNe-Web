@@ -2,13 +2,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBuilding, faCompass } from "@fortawesome/free-regular-svg-icons";
 import styled from "styled-components";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
-import { useReactiveVar } from "@apollo/client";
-import { isLoggedInVar } from "../apollo";
+import { ApolloClient, useApolloClient, useReactiveVar } from "@apollo/client";
+import { isLoggedInVar, logUserOut } from "../apollo";
 import { Link } from "react-router-dom";
 import routes from "../routes";
 import useUser from "../hooks/useUser";
 import Avatar from "./shared/Avatar";
 import DarkMode from "./shared/DarkModeBtn";
+import { MdLogout } from "react-icons/md";
 
 const SHeader = styled.header`
   width: 100%;
@@ -47,6 +48,7 @@ const IconsContainer = styled.div`
 `;
 
 export const Header = () => {
+  const client: ApolloClient<object> = useApolloClient();
   const isLoggedIn = useReactiveVar(isLoggedInVar);
   const { data } = useUser();
   return (
@@ -65,6 +67,13 @@ export const Header = () => {
               </Icon>
               <Icon>
                 <FontAwesomeIcon icon={faCompass} size="lg" />
+              </Icon>
+              <Icon>
+                <MdLogout
+                  size={"20px"}
+                  style={{ display: "flex", cursor: "pointer" }}
+                  onClick={() => logUserOut(client)}
+                />
               </Icon>
               <Icon>
                 <DarkMode />

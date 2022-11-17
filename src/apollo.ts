@@ -21,11 +21,10 @@ export const logUserIn = (token: string) => {
   isLoggedInVar(true);
 };
 
-export const logUserOut = (navigate: NavigateFunction) => {
+export const logUserOut = (client: ApolloClient<object>) => {
+  client.clearStore();
   localStorage.removeItem(TOKEN);
   isLoggedInVar(false);
-  navigate(routes.home, { replace: true });
-  window.location.reload();
 };
 
 export const darkModeVar = makeVar(Boolean(localStorage.getItem(DARK_MODE)));
