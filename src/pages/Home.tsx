@@ -1,31 +1,19 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import Post from "../components/feed/Post";
 import PageTitle from "../components/PageTitle";
-import { COMMENT_FRAGMENT, POST_FRAGMENT } from "../fragments";
-
-const FEED_QUERY = gql`
-  query seeFeed {
-    seeFeed {
-      ...PostFragment
-      user {
-        username
-        fullName
-        avatar
-      }
-      caption
-      comments {
-        ...CommentFragment
-      }
-      createdAt
-      isMine
-    }
-  }
-  ${POST_FRAGMENT}
-  ${COMMENT_FRAGMENT}
-`;
+import FEED_QUERY from "../documents/queries/seeFeed.query";
 
 const Home = () => {
-  const { data } = useQuery(FEED_QUERY);
+  const { data, fetchMore } = useQuery(FEED_QUERY, {
+    variables: {
+      offset: 0,
+    },
+  });
+  fetchMore({
+    variables: {
+      offset: data?.seeFeed?.length,
+    },
+  });
 
   return (
     <div>

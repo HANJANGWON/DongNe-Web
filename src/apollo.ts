@@ -7,6 +7,7 @@ import {
 import { NavigateFunction } from "react-router-dom";
 import routes from "./routes";
 import { setContext } from "@apollo/client/link/context";
+import { offsetLimitPagination } from "@apollo/client/utilities";
 
 const TOKEN = "token";
 const DARK_MODE = "DARK_MODE";
@@ -58,6 +59,11 @@ export const client = new ApolloClient({
     typePolicies: {
       User: {
         keyFields: (obj) => `User:${obj.username}`,
+      },
+      Query: {
+        fields: {
+          seeFeed: offsetLimitPagination(),
+        },
       },
     },
   }),

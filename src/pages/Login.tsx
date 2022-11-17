@@ -1,4 +1,4 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faBuilding } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,6 +17,7 @@ import Separator from "../components/auth/Separator";
 import PageTitle from "../components/PageTitle";
 import { HeaderContainer, SubTitle } from "../components/shared/shared";
 import routes from "../routes";
+import LOGIN_MUTATION from "../documents/mutations/login.mutation";
 
 interface LoginState {
   username?: string;
@@ -40,16 +41,6 @@ const GoogleLogin = styled.div`
 
 const FontAwesome = styled.div`
   color: ${(props) => props.theme.accent};
-`;
-
-const LOGIN_MUTATION = gql`
-  mutation login($username: String!, $password: String!) {
-    login(username: $username, password: $password) {
-      ok
-      token
-      error
-    }
-  }
 `;
 
 const Login = () => {

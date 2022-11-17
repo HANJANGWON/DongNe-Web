@@ -1,5 +1,5 @@
 import React from "react";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import {
   faBookmark,
   faComment,
@@ -14,6 +14,7 @@ import Avatar from "../shared/Avatar";
 import { FatText } from "../shared/shared";
 import Comments from "./Comments";
 import { Link } from "react-router-dom";
+import TOGGLE_LIKE_MUTATION from "../../documents/mutations/toggleLike.mutation";
 
 interface PostProps {
   id: number;
@@ -29,15 +30,6 @@ interface PostProps {
   commentsNumber: number;
   comments: Comment[];
 }
-
-const TOGGLE_LIKE_MUTATION = gql`
-  mutation toggleLike($id: Int!) {
-    toggleLike(id: $id) {
-      ok
-      error
-    }
-  }
-`;
 
 const PostContainer = styled.div`
   background-color: white;

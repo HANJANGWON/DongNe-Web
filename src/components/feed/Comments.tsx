@@ -1,6 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import CREATE_COMMENT_MUTATION from "../../documents/mutations/createComment.mutation";
 import { Comment } from "../../generated/graphql";
 import useUser from "../../hooks/useUser";
 import CommentContainer from "./Comment";
@@ -10,16 +11,6 @@ interface CommentsContainerProps {
   commentsNumber: number;
   comments: Comment[];
 }
-
-const CREATE_COMMENT_MUTATION = gql`
-  mutation createComment($postId: Int!, $payload: String!) {
-    createComment(postId: $postId, payload: $payload) {
-      ok
-      error
-      id
-    }
-  }
-`;
 
 const CommentsContainer = styled.div`
   padding-left: 15px;

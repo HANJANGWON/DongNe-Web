@@ -1,18 +1,11 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
 import styled from "styled-components";
+import DELETE_COMMENT_MUTATION from "../../documents/mutations/deleteComment.mutation";
 import { FatText } from "../shared/shared";
-
-const DELETE_COMMENT_MUTATION = gql`
-  mutation deleteComment($id: Int!) {
-    deleteComment(id: $id) {
-      ok
-    }
-  }
-`;
 
 interface CommentContainerProps {
   id: number;
@@ -38,7 +31,6 @@ const CommentContainer = ({
   payload,
 }: CommentContainerProps) => {
   const updateDeleteComment = (cache: any, result: any) => {
-    console.log(cache);
     const {
       data: {
         deleteComment: { ok },

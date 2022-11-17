@@ -1,4 +1,4 @@
-import { gql, useApolloClient, useMutation, useQuery } from "@apollo/client";
+import { useApolloClient, useMutation, useQuery } from "@apollo/client";
 import { faComment, faHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams } from "react-router-dom";
@@ -6,7 +6,9 @@ import styled from "styled-components";
 import PageTitle from "../components/PageTitle";
 import Button from "../components/shared/Button";
 import { FatText } from "../components/shared/shared";
-import { POST_FRAGMENT } from "../fragments";
+import FOLLOW_USER_MUTATION from "../documents/mutations/followUser.mutation";
+import UNFOLLOW_USER_MUTATION from "../documents/mutations/unfollowUser.mutation";
+import SEE_PROFILE_QUERY from "../documents/queries/seeProfile.query";
 import useUser from "../hooks/useUser";
 
 type ProfileParams = {
@@ -17,41 +19,6 @@ interface PostProps {
   bg: string;
 }
 
-const FOLLOW_USER_MUTATION = gql`
-  mutation followUser($username: String!) {
-    followUser(username: $username) {
-      ok
-    }
-  }
-`;
-
-const UNFOLLOW_USER_MUTATION = gql`
-  mutation unfollowUser($username: String!) {
-    unfollowUser(username: $username) {
-      ok
-    }
-  }
-`;
-
-const SEE_PROFILE_QUERY = gql`
-  query seeProfile($username: String!) {
-    seeProfile(username: $username) {
-      username
-      fullName
-      bio
-      avatar
-      posts {
-        ...PostFragment
-      }
-      totalFollowing
-      totalFollowers
-      isMe
-      isFollowing
-      isManager
-    }
-  }
-  ${POST_FRAGMENT}
-`;
 const Header = styled.div`
   display: flex;
 `;

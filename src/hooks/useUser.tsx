@@ -1,18 +1,8 @@
-import { gql, useQuery, useReactiveVar } from "@apollo/client";
+import { useQuery, useReactiveVar } from "@apollo/client";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { isLoggedInVar, logUserOut } from "../apollo";
-
-const ME_QUERY = gql`
-  query me {
-    me {
-      id
-      username
-      fullName
-      avatar
-    }
-  }
-`;
+import ME_QUERY from "../documents/queries/me.query";
 
 const useUser = () => {
   const navigate = useNavigate();

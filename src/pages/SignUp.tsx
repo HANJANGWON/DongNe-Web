@@ -1,4 +1,4 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { faBuilding } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
@@ -13,28 +13,10 @@ import { Input } from "../components/auth/Input";
 import PageTitle from "../components/PageTitle";
 import { HeaderContainer, SubTitle } from "../components/shared/shared";
 import routes from "../routes";
+import CREATE_ACCOUNT_MUTATION from "../documents/mutations/createAccount.mutation";
 
 const FontAwesome = styled.div`
   color: ${(props) => props.theme.accent};
-`;
-
-const CREATE_ACCOUNT_MUTATION = gql`
-  mutation createAccount(
-    $username: String!
-    $fullName: String!
-    $email: String!
-    $password: String!
-  ) {
-    createAccount(
-      username: $username
-      fullName: $fullName
-      email: $email
-      password: $password
-    ) {
-      ok
-      error
-    }
-  }
 `;
 
 const SignUp = () => {
