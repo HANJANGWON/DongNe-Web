@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBuilding, faCompass } from "@fortawesome/free-regular-svg-icons";
+import { faBuilding } from "@fortawesome/free-regular-svg-icons";
 import styled from "styled-components";
-import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faHome } from "@fortawesome/free-solid-svg-icons";
 import { ApolloClient, useApolloClient, useReactiveVar } from "@apollo/client";
 import { isLoggedInVar, logUserOut } from "../apollo";
 import { Link } from "react-router-dom";
@@ -33,12 +33,13 @@ const Column = styled.div``;
 
 const Icon = styled.span`
   margin-left: 15px;
+  cursor: pointer;
 `;
 const Button = styled.span`
   background-color: ${(props) => props.theme.accent};
   border-radius: 4px;
   padding: 3px 15px;
-  color: white;
+  color: ${(props) => props.theme.buttonFontColor};
   font-weight: 600;
 `;
 
@@ -55,7 +56,9 @@ export const Header = () => {
     <SHeader>
       <Wrapper>
         <Column>
-          <FontAwesomeIcon icon={faBuilding} size="2x" />
+          <Link to={routes.home}>
+            <FontAwesomeIcon icon={faBuilding} size="2x" />
+          </Link>
         </Column>
         <Column>
           {isLoggedIn ? (
@@ -66,12 +69,14 @@ export const Header = () => {
                 </Link>
               </Icon>
               <Icon>
-                <FontAwesomeIcon icon={faCompass} size="lg" />
+                <Link to={"posts/upload"}>
+                  <FontAwesomeIcon icon={faAdd} size="lg" />
+                </Link>
               </Icon>
               <Icon>
                 <MdLogout
                   size={"20px"}
-                  style={{ display: "flex", cursor: "pointer" }}
+                  style={{ display: "flex" }}
                   onClick={() => logUserOut(client)}
                 />
               </Icon>
@@ -85,9 +90,14 @@ export const Header = () => {
               </Icon>
             </IconsContainer>
           ) : (
-            <Link to={routes.home}>
-              <Button>Login</Button>
-            </Link>
+            <IconsContainer>
+              <Link to={routes.home}>
+                <Button>Login</Button>
+              </Link>
+              <Icon>
+                <DarkMode />
+              </Icon>
+            </IconsContainer>
           )}
         </Column>
       </Wrapper>

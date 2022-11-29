@@ -10,5 +10,6 @@ declare module "styled-components" {
     googleLogin?: string;
     FatLink?: string;
     borderAccent?: string;
+    bgContainerColor?: string;
   }
 }

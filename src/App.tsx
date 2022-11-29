@@ -33,7 +33,11 @@ function App() {
                     <Login />
                   )
                 }
-              />
+              >
+                {isLoggedIn === true && (
+                  <Route path="posts/upload" element={<Home />} />
+                )}
+              </Route>
               <Route
                 path={routes.signUp}
                 element={!isLoggedIn ? <SignUp /> : null}

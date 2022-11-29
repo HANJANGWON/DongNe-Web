@@ -4,6 +4,7 @@ import reset from "styled-reset";
 export const lightTheme: DefaultTheme = {
   accent: "#348dec",
   bgColor: "#FAFAFA",
+  bgContainerColor: "white",
   fontColor: "rgb(38, 38, 38)",
   borderColor: "rgb(219, 219, 219)",
   buttonFontColor: "white",
@@ -15,6 +16,7 @@ export const lightTheme: DefaultTheme = {
 export const darkTheme: DefaultTheme = {
   accent: "lightgray",
   bgColor: "#2c2c2c",
+  bgContainerColor: "black",
   fontColor: "white",
   borderColor: "white",
   buttonFontColor: "#2c2c2c",

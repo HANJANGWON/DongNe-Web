@@ -52,6 +52,7 @@ const Comments = ({
         createComment: { ok, id },
       },
     } = result;
+
     if (ok && userData?.me) {
       const newComment = {
         __typename: "Comment",
