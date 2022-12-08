@@ -10,6 +10,7 @@ import useUser from "../hooks/useUser";
 import Avatar from "./shared/Avatar";
 import DarkMode from "./shared/DarkModeBtn";
 import { MdLogout } from "react-icons/md";
+import basic_image from "../pages/images/basic_user.jpeg";
 
 const SHeader = styled.header`
   width: 100%;
@@ -85,7 +86,7 @@ export const Header = () => {
               </Icon>
               <Icon>
                 <Link to={`/users/${data?.me?.username}`}>
-                  <Avatar url={data?.me?.avatar} />
+                  <Avatar url={data?.me?.avatar || basic_image} />
                 </Link>
               </Icon>
             </IconsContainer>

@@ -10,6 +10,7 @@ import Username from "../components/shared/Username";
 import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import UPLOAD_POST_MUTATION from "../documents/mutations/uploadPost.mutation";
+import routes from "../routes";
 
 interface FormData {
   photo: FileList;
@@ -125,7 +126,8 @@ const ModalPostInfo = styled.div`
   padding: 15px;
   box-sizing: border-box;
   border-bottom: 1px solid lightgray;
-  height: 340px;
+  height: 540px;
+  border: none;
 `;
 
 const UserInfoContainer = styled.div`
@@ -136,6 +138,8 @@ const UserInfoContainer = styled.div`
 `;
 
 const PhotoCaption = styled.textarea`
+  background-color: ${(props) => props.theme.bgContainerColor};
+  color: ${(props) => props.theme.fontColor};
   margin-top: 10px;
   resize: none;
   outline: none;
@@ -182,8 +186,10 @@ const UploadPost = () => {
       return;
     }
     const { photo, text }: FormData = getValues();
-    uploadPostMutation({ variables: { file: photo[0], caption: text } });
-    closeModal();
+    if (photoPreview) {
+      uploadPostMutation({ variables: { file: photo[0], caption: text } });
+      navigate(routes.home);
+    }
   };
 
   useEffect(() => {

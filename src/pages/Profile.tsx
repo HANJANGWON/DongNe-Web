@@ -1,7 +1,9 @@
 import { useApolloClient, useMutation, useQuery } from "@apollo/client";
 import { faComment, faHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+import { useParams, useMatch, PathMatch } from "react-router-dom";
 import styled from "styled-components";
 import PageTitle from "../components/PageTitle";
 import Button from "../components/shared/Button";
@@ -10,6 +12,7 @@ import FOLLOW_USER_MUTATION from "../documents/mutations/followUser.mutation";
 import UNFOLLOW_USER_MUTATION from "../documents/mutations/unfollowUser.mutation";
 import SEE_PROFILE_QUERY from "../documents/queries/seeProfile.query";
 import useUser from "../hooks/useUser";
+import UploadPost from "./UploadPost";
 
 type ProfileParams = {
   username: string;
@@ -105,6 +108,9 @@ const ProfileBtn = styled(Button).attrs({
 `;
 
 const Profile = () => {
+  const uploadPostPathMath: PathMatch<"username"> | null = useMatch(
+    `/users/:username/posts/upload`
+  );
   const { username } = useParams<ProfileParams>();
   const { data: userData } = useUser();
   const client = useApolloClient();
@@ -187,7 +193,11 @@ const Profile = () => {
   const getButton = (seeProfile: any) => {
     const { isMe, isFollowing } = seeProfile;
     if (isMe) {
-      return <ProfileBtn>프로필 수정</ProfileBtn>;
+      return (
+        <ProfileBtn>
+          <Link to={`/users/${userData.me.username}/edit`}>프로필 수정</Link>
+        </ProfileBtn>
+      );
     }
     if (isFollowing) {
       return <ProfileBtn onClick={() => unfollowUser()}>Unfollow</ProfileBtn>;
@@ -197,6 +207,7 @@ const Profile = () => {
   };
   return (
     <div>
+      <AnimatePresence>{uploadPostPathMath && <UploadPost />}</AnimatePresence>
       <PageTitle
         title={loading ? "로딩중..." : `${data?.seeProfile?.username}의 프로필`}
       />

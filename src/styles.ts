@@ -11,6 +11,8 @@ export const lightTheme: DefaultTheme = {
   googleLogin: "#385285",
   FatLink: "rgb(142, 142, 142)",
   borderAccent: "#2c2c2c",
+  inputBgColor: "#fafafa",
+  deleteColor: "#ed4956",
 };
 
 export const darkTheme: DefaultTheme = {
@@ -22,6 +24,8 @@ export const darkTheme: DefaultTheme = {
   buttonFontColor: "#2c2c2c",
   googleLogin: "lightgray",
   FatLink: "rgb(180, 180, 180)",
+  inputBgColor: "black",
+  deleteColor: "#ed4956",
 };
 
 export const GlobalStyles = createGlobalStyle`

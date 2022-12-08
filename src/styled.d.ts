@@ -11,5 +11,7 @@ declare module "styled-components" {
     FatLink?: string;
     borderAccent?: string;
     bgContainerColor?: string;
+    inputBgColor?: string;
+    deleteColor?: string;
   }
 }

@@ -18,6 +18,14 @@ const SSignUpFormError = styled(SFormError)`
   margin-top: 25px;
 `;
 
+const SEditProfileFormError = styled.h5`
+  color: tomato;
+  font-weight: bold;
+  font-size: 13px;
+  margin-top: 30px;
+  text-align: center;
+`;
+
 export const LoginFormError = ({ message }: FormErrorProps) => {
   return message === "" || !message ? null : (
     <SLoginFormError>{message}</SLoginFormError>
@@ -27,5 +35,11 @@ export const LoginFormError = ({ message }: FormErrorProps) => {
 export const SignUpFormError = ({ message }: FormErrorProps) => {
   return message === "" || !message ? null : (
     <SSignUpFormError>{message}</SSignUpFormError>
+  );
+};
+
+export const EditProfileFormError = ({ message }: FormErrorProps) => {
+  return message === "" || !message ? null : (
+    <SEditProfileFormError>{message}</SEditProfileFormError>
   );
 };
