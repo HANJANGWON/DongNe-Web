@@ -195,7 +195,7 @@ const Profile = () => {
     if (isMe) {
       return (
         <ProfileBtn>
-          <Link to={`/users/${userData.me.username}/edit`}>프로필 수정</Link>
+          <Link to={`/users/${userData?.me?.username}/edit`}>프로필 수정</Link>
         </ProfileBtn>
       );
     }

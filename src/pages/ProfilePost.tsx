@@ -2,15 +2,9 @@ import styled from "styled-components";
 import PageTitle from "../components/PageTitle";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
-import { BiImageAdd } from "react-icons/bi";
-import { useForm } from "react-hook-form";
-import useUser from "../hooks/useUser";
 import Avatar from "../components/shared/Avatar";
 import Username from "../components/shared/Username";
-import { useEffect, useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
-import UPLOAD_POST_MUTATION from "../documents/mutations/uploadPost.mutation";
-import routes from "../routes";
+import { useQuery } from "@apollo/client";
 import SEE_POST_QUERY from "../documents/queries/seePost.query";
 import Comments from "../components/feed/Comments";
 
@@ -140,12 +134,6 @@ const PostCaption = styled.div`
   height: 400px;
   font-size: 15px;
   line-height: 1.5;
-`;
-
-const PostComments = styled.div`
-  width: 100%;
-  height: 260px;
-  margin-top: 10px;
 `;
 
 const ProfilePost = () => {
