@@ -9,6 +9,8 @@ import Profile from "./pages/Profile";
 import SignUp from "./pages/SignUp";
 import routes from "./routes";
 import { isLoggedInVar } from "./apollo";
+import Post from "./pages/ProfilePost";
+import ProfilePost from "./pages/ProfilePost";
 
 const Router = () => {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
@@ -53,6 +55,10 @@ const Router = () => {
             element={<EditProfile />}
           />
         </Route>
+        <Route
+          path={`/users/:username/post/:postId`}
+          element={<ProfilePost />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

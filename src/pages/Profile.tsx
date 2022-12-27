@@ -238,18 +238,20 @@ const Profile = () => {
       </Header>
       <Grid>
         {data?.seeProfile?.posts.map((post: any) => (
-          <Post key={post.id} bg={post.file}>
-            <Icons>
-              <Icon>
-                <FontAwesomeIcon icon={faHeart} />
-                {post.likes}
-              </Icon>
-              <Icon>
-                <FontAwesomeIcon icon={faComment} />
-                {post.commentsNumber}
-              </Icon>
-            </Icons>
-          </Post>
+          <Link key={post.id} to={`post/${post.id}`}>
+            <Post key={post.id} bg={post.file}>
+              <Icons>
+                <Icon>
+                  <FontAwesomeIcon icon={faHeart} />
+                  {post.likes}
+                </Icon>
+                <Icon>
+                  <FontAwesomeIcon icon={faComment} />
+                  {post.commentsNumber}
+                </Icon>
+              </Icons>
+            </Post>
+          </Link>
         ))}
       </Grid>
     </div>
