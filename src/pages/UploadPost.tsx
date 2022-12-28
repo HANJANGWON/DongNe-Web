@@ -151,6 +151,7 @@ const PhotoCaption = styled.textarea`
 `;
 
 const UploadPost = () => {
+  const { data: userData } = useUser();
   const updateUploadPost = (cache: any, result: any) => {
     const {
       data: { uploadPost },
@@ -164,9 +165,17 @@ const UploadPost = () => {
           },
         },
       });
+      cache.modify({
+        id: `User:${userData?.me?.username}`,
+        fields: {
+          posts(prev: any) {
+            return [...prev, uploadPost];
+          },
+        },
+      });
     }
   };
-  const { data: userData } = useUser();
+
   const navigate: NavigateFunction = useNavigate();
   const [photoPreview, setPhotoPreview] = useState<string>("");
   const { register, handleSubmit, getValues, watch } = useForm<FormData>({

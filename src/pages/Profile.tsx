@@ -167,6 +167,7 @@ const Profile = () => {
       return;
     }
     const { cache } = client;
+    console.log(cache);
     cache.modify({
       id: `User:${username}`,
       fields: {
