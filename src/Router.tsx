@@ -10,6 +10,7 @@ import SignUp from "./pages/SignUp";
 import routes from "./routes";
 import { isLoggedInVar } from "./apollo";
 import ProfilePost from "./pages/ProfilePost";
+import SearchPosts from "./pages/SearchPosts";
 
 const Router = () => {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
@@ -43,6 +44,12 @@ const Router = () => {
         >
           {isLoggedIn === true && (
             <Route
+              path={`/users/:username/post/:postId`}
+              element={<Profile />}
+            />
+          )}
+          {isLoggedIn === true && (
+            <Route
               path={`/users/:username/posts/upload`}
               element={<Profile />}
             />
@@ -54,10 +61,7 @@ const Router = () => {
             element={<EditProfile />}
           />
         </Route>
-        <Route
-          path={`/users/:username/post/:postId`}
-          element={<ProfilePost />}
-        />
+        <Route path={`/search/:keyword/`} element={<SearchPosts />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

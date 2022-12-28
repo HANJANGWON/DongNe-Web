@@ -20,7 +20,7 @@ interface FormData {
 const modalVariants: Variants = {
   start: { opacity: 0, scale: 0.95, translateX: "-50%", translateY: "-50%" },
   end: { opacity: 1, scale: 1, transition: { duration: 0.2 } },
-  exit: { opacity: 0, scale: 0.95, transition: { duration: 0.2 } },
+  exit: { opacity: 1, scale: 0.95, transition: { duration: 0.2 } },
 };
 
 const ModalLikeBackground = styled.div`

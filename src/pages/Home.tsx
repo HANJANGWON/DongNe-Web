@@ -26,6 +26,7 @@ const Home = () => {
         {uploadPostPathMath &&
           uploadPostPathMath.pathname === "/posts/upload" && <UploadPost />}
       </AnimatePresence>
+
       <PageTitle title="Home"></PageTitle>
       {data?.seeFeed?.map((post: any) => (
         <Post key={post.id} {...post} />

@@ -4,13 +4,14 @@ import styled from "styled-components";
 import { faAdd, faHome } from "@fortawesome/free-solid-svg-icons";
 import { ApolloClient, useApolloClient, useReactiveVar } from "@apollo/client";
 import { isLoggedInVar, logUserOut } from "../apollo";
-import { Link } from "react-router-dom";
+import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import routes from "../routes";
 import useUser from "../hooks/useUser";
 import Avatar from "./shared/Avatar";
 import DarkMode from "./shared/DarkModeBtn";
 import { MdLogout } from "react-icons/md";
 import basic_image from "../pages/images/basic_user.jpeg";
+import { useForm } from "react-hook-form";
 
 const SHeader = styled.header`
   width: 100%;
@@ -49,10 +50,28 @@ const IconsContainer = styled.div`
   align-items: center;
 `;
 
+const SearchBoxContainer = styled.div`
+  width: 300px;
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
+`;
+
+const SearchBoxInput = styled.input`
+  font-size: 16px;
+  margin-left: 7px;
+  width: 100%;
+`;
+
 export const Header = () => {
   const client: ApolloClient<object> = useApolloClient();
+  const navigate: NavigateFunction = useNavigate();
   const isLoggedIn = useReactiveVar(isLoggedInVar);
   const { data } = useUser();
+  const { register, handleSubmit, setValue, getValues, watch } = useForm();
+
+  const onValid = () => {
+    const { payload } = getValues();
+    navigate(`/search/${payload}`);
+  };
   return (
     <SHeader>
       <Wrapper>
@@ -61,6 +80,16 @@ export const Header = () => {
             <FontAwesomeIcon icon={faBuilding} size="2x" />
           </Link>
         </Column>
+        <SearchBoxContainer>
+          <form onSubmit={handleSubmit(onValid)}>
+            <SearchBoxInput
+              {...register("payload", { required: true })}
+              name="payload"
+              type="text"
+              placeholder="검색"
+            ></SearchBoxInput>
+          </form>
+        </SearchBoxContainer>
         <Column>
           {isLoggedIn ? (
             <IconsContainer>

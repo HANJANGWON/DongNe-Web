@@ -13,6 +13,7 @@ import UNFOLLOW_USER_MUTATION from "../documents/mutations/unfollowUser.mutation
 import SEE_PROFILE_QUERY from "../documents/queries/seeProfile.query";
 import useUser from "../hooks/useUser";
 import UploadPost from "./UploadPost";
+import ProfilePost from "./ProfilePost";
 
 type ProfileParams = {
   username: string;
@@ -111,6 +112,9 @@ const Profile = () => {
   const uploadPostPathMath: PathMatch<"username"> | null = useMatch(
     `/users/:username/posts/upload`
   );
+  const postProfilePathMath: PathMatch<"postId"> | null = useMatch(
+    `/users/:username/post/:postId`
+  );
   const { username } = useParams<ProfileParams>();
   const { data: userData } = useUser();
   const client = useApolloClient();
@@ -208,6 +212,9 @@ const Profile = () => {
   return (
     <div>
       <AnimatePresence>{uploadPostPathMath && <UploadPost />}</AnimatePresence>
+      <AnimatePresence>
+        {postProfilePathMath && <ProfilePost />}
+      </AnimatePresence>
       <PageTitle
         title={loading ? "로딩중..." : `${data?.seeProfile?.username}의 프로필`}
       />
