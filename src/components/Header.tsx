@@ -13,6 +13,10 @@ import { MdLogout } from "react-icons/md";
 import basic_image from "../pages/images/basic_user.jpeg";
 import { useForm } from "react-hook-form";
 
+interface FormData {
+  payload: string;
+}
+
 const SHeader = styled.header`
   width: 100%;
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
@@ -66,10 +70,11 @@ export const Header = () => {
   const navigate: NavigateFunction = useNavigate();
   const isLoggedIn = useReactiveVar(isLoggedInVar);
   const { data } = useUser();
-  const { register, handleSubmit, setValue, getValues, watch } = useForm();
+  const { register, handleSubmit, setValue, getValues } = useForm<FormData>();
 
   const onValid = () => {
-    const { payload } = getValues();
+    const { payload }: FormData = getValues();
+    setValue("payload", "");
     navigate(`/search/${payload}`);
   };
   return (

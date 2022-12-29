@@ -60,7 +60,19 @@ const Router = () => {
             element={<EditProfile />}
           />
         </Route>
-        <Route path={`/search/:keyword/`} element={<SearchPosts />} />
+        <Route
+          path={`/search/:keyword/`}
+          element={
+            <Layout>
+              <SearchPosts />
+            </Layout>
+          }
+        >
+          <Route
+            path={`/search/:keyword/posts/upload`}
+            element={<SearchPosts />}
+          />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
