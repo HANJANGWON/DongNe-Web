@@ -167,7 +167,6 @@ const Profile = () => {
       return;
     }
     const { cache } = client;
-    console.log(cache);
     cache.modify({
       id: `User:${username}`,
       fields: {
@@ -210,6 +209,7 @@ const Profile = () => {
       return <ProfileBtn onClick={() => followUser()}>Follow</ProfileBtn>;
     }
   };
+  console.log(data?.seeProfile?.posts);
   return (
     <div>
       <AnimatePresence>{uploadPostPathMath && <UploadPost />}</AnimatePresence>

@@ -169,7 +169,7 @@ const UploadPost = () => {
         id: `User:${userData?.me?.username}`,
         fields: {
           posts(prev: any) {
-            return [...prev, uploadPost];
+            return [uploadPost, ...prev];
           },
         },
       });
