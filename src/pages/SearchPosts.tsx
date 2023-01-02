@@ -22,11 +22,13 @@ const SearchPosts = () => {
     <div>
       <AnimatePresence>{uploadPostPathMath && <UploadPost />}</AnimatePresence>
       <PageTitle title="Search"></PageTitle>
-      {data?.searchPosts[0] ? (
-        data?.searchPosts?.map((post: any) => <Post key={post.id} {...post} />)
-      ) : (
-        <div>"{keyword}" 검색 결과 없음</div>
-      )}
+      {data === undefined
+        ? null
+        : data.searchPosts.ok
+        ? data?.searchPosts?.posts.map((post: any) => (
+            <Post key={post.id} {...post} />
+          ))
+        : `"${keyword}" ${data?.searchPosts?.message}`}
     </div>
   );
 };

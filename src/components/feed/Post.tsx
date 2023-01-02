@@ -114,6 +114,7 @@ const Post = ({
   comments,
 }: PostProps) => {
   const [openComments, setOpenComments] = useState("");
+
   const openCommentsOnClick = () => {
     if (openComments === "") {
       setOpenComments("open");
@@ -121,7 +122,7 @@ const Post = ({
       setOpenComments("");
     }
   };
-  console.log(openComments);
+
   const updateToggleLike = (cache: any, result: any) => {
     const {
       data: {
