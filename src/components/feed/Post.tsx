@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import {
   faBookmark,
   faComment,
   faHeart,
-  faPaperPlane,
 } from "@fortawesome/free-regular-svg-icons";
-import { faHeart as SolidHeart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHeart as SolidHeart,
+  faComment as SolidComment,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { Comment } from "../../generated/graphql";
@@ -111,6 +113,15 @@ const Post = ({
   commentsNumber,
   comments,
 }: PostProps) => {
+  const [openComments, setOpenComments] = useState("");
+  const openCommentsOnClick = () => {
+    if (openComments === "") {
+      setOpenComments("open");
+    } else {
+      setOpenComments("");
+    }
+  };
+  console.log(openComments);
   const updateToggleLike = (cache: any, result: any) => {
     const {
       data: {
@@ -178,11 +189,14 @@ const Post = ({
                 icon={isLiked ? SolidHeart : faHeart}
               />
             </PostAction>
-            <PostAction>
-              <FontAwesomeIcon icon={faComment} />
-            </PostAction>
-            <PostAction>
-              <FontAwesomeIcon icon={faPaperPlane} />
+            <PostAction
+              onClick={() => {
+                openCommentsOnClick();
+              }}
+            >
+              <FontAwesomeIcon
+                icon={openComments === "open" ? SolidComment : faComment}
+              />
             </PostAction>
           </div>
           <div>
@@ -194,6 +208,7 @@ const Post = ({
           postId={id}
           commentsNumber={commentsNumber}
           comments={comments}
+          openComments={openComments}
         />
       </PostData>
     </PostContainer>

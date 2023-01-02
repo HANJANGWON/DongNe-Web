@@ -10,6 +10,7 @@ interface CommentsContainerProps {
   postId: number;
   commentsNumber: number;
   comments: Comment[];
+  openComments?: string;
 }
 
 const CommentsContainer = styled.div`
@@ -41,6 +42,7 @@ const Comments = ({
   postId,
   commentsNumber,
   comments,
+  openComments,
 }: CommentsContainerProps) => {
   const { data: userData } = useUser();
   const { register, handleSubmit, setValue, getValues } = useForm();
@@ -114,26 +116,30 @@ const Comments = ({
   return (
     <CommentsContainer>
       <CommentCount>{`댓글 ${commentsNumber}`}</CommentCount>
-      {comments?.map((comment) => (
-        <CommentContainer
-          key={comment.id}
-          id={comment.id}
-          postId={postId}
-          user={comment.user.username}
-          payload={comment.payload}
-          isMine={comment.isMine}
-        />
-      ))}
-      <PostCommentContainer>
-        <form onSubmit={handleSubmit(onVaild)}>
-          <PostCommentInput
-            {...register("payload", { required: true })}
-            name="payload"
-            type="text"
-            placeholder="댓글을 입력해주세요..."
-          />
-        </form>
-      </PostCommentContainer>
+      {openComments ? (
+        <div>
+          {comments?.map((comment) => (
+            <CommentContainer
+              key={comment.id}
+              id={comment.id}
+              postId={postId}
+              user={comment.user.username}
+              payload={comment.payload}
+              isMine={comment.isMine}
+            />
+          ))}
+          <PostCommentContainer>
+            <form onSubmit={handleSubmit(onVaild)}>
+              <PostCommentInput
+                {...register("payload", { required: true })}
+                name="payload"
+                type="text"
+                placeholder="댓글을 입력해주세요..."
+              />
+            </form>
+          </PostCommentContainer>
+        </div>
+      ) : null}
     </CommentsContainer>
   );
 };

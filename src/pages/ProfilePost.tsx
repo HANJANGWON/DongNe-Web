@@ -184,6 +184,7 @@ const ProfilePost = () => {
                 postId={data?.seePost?.id}
                 commentsNumber={data?.seePost?.commentsNumber}
                 comments={data?.seePost?.comments}
+                openComments={"open"}
               />
             </ModalPostInfo>
           </ModalMain>

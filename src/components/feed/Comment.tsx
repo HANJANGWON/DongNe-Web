@@ -41,7 +41,7 @@ const CommentContainer = ({
       cache.modify({
         id: `Post:${postId}`,
         fields: {
-          commentsNumber(prev: any) {
+          commentsNumber(prev: number) {
             return prev - 1;
           },
         },
