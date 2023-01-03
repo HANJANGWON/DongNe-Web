@@ -145,6 +145,14 @@ const Post = ({
           },
         },
       });
+      cache.modify({
+        id: "ROOT_QUERY",
+        fields: {
+          seeFeed(prev: any) {
+            return !prev;
+          },
+        },
+      });
     }
   };
   const [toggleLikeMutation] = useMutation(TOGGLE_LIKE_MUTATION, {
