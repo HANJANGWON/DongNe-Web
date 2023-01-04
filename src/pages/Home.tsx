@@ -6,10 +6,53 @@ import { AnimatePresence } from "framer-motion";
 import { useMatch, PathMatch } from "react-router-dom";
 import UploadPost from "./UploadPost";
 import { useCallback, useEffect } from "react";
+import styled from "styled-components";
+import useUser from "../hooks/useUser";
+import { Link } from "react-router-dom";
+
+const HomeContainer = styled.div`
+  margin-top: 100px;
+  display: flex;
+`;
+
+const PostsContainer = styled.div``;
+
+const InfoContainer = styled.div`
+  position: fixed;
+  top: 10px;
+  right: 100px;
+  margin: 100px 0px 0px 0px;
+  text-align: center;
+  width: 250px;
+  height: 300px;
+  background-color: ${(props) => props.theme.HomeInfoContainerColor};
+  border: solid 1px ${(props) => props.theme.borderColor};
+  border-radius: 20px;
+`;
+
+const InfoAvatar = styled.img`
+  margin-top: 20px;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+`;
+
+const InfoUsername = styled.div`
+  font-weight: 600;
+  margin: 20px 0px 0px 0px;
+  font-size: 17px;
+  padding-bottom: 40px;
+  border-bottom: solid 1px ${(props) => props.theme.borderColor};
+`;
+
+const InfoBio = styled.div`
+  margin-top: 50px;
+`;
 
 const Home = () => {
   const uploadPostPathMath: PathMatch<string> | null =
     useMatch("/posts/upload");
+  const { data: userData } = useUser();
   const { data, fetchMore } = useQuery(FEED_QUERY, {
     variables: {
       offset: 0,
@@ -32,17 +75,26 @@ const Home = () => {
   }, [handleScroll]);
 
   return (
-    <div>
+    <HomeContainer>
       <AnimatePresence>
         {uploadPostPathMath &&
           uploadPostPathMath.pathname === "/posts/upload" && <UploadPost />}
       </AnimatePresence>
 
       <PageTitle title="Home"></PageTitle>
-      {data?.seeFeed?.map((post: any) => (
-        <Post key={post.id} {...post} />
-      ))}
-    </div>
+      <PostsContainer>
+        {data?.seeFeed?.map((post: any) => (
+          <Post key={post.id} {...post} />
+        ))}
+      </PostsContainer>
+      <InfoContainer>
+        <Link to={`/users/${userData?.me?.username}`}>
+          <InfoAvatar src={userData?.me?.avatar} />
+          <InfoUsername>{userData?.me?.username}</InfoUsername>
+        </Link>
+        <InfoBio>{userData?.me?.bio}</InfoBio>
+      </InfoContainer>
+    </HomeContainer>
   );
 };
 export default Home;

@@ -23,6 +23,10 @@ interface PostProps {
   bg: string;
 }
 
+const ProfileContainer = styled.div`
+  margin-top: 100px;
+`;
+
 const Header = styled.div`
   display: flex;
 `;
@@ -211,7 +215,7 @@ const Profile = () => {
   };
 
   return (
-    <div>
+    <ProfileContainer>
       <AnimatePresence>{uploadPostPathMath && <UploadPost />}</AnimatePresence>
       <AnimatePresence>
         {postProfilePathMath && <ProfilePost />}
@@ -262,7 +266,7 @@ const Profile = () => {
           </Link>
         ))}
       </Grid>
-    </div>
+    </ProfileContainer>
   );
 };
 

@@ -1,10 +1,15 @@
 import { useQuery } from "@apollo/client";
 import { AnimatePresence } from "framer-motion";
 import { PathMatch, useMatch, useParams } from "react-router-dom";
+import styled from "styled-components";
 import Post from "../components/feed/Post";
 import PageTitle from "../components/PageTitle";
 import SEARCH_POSTS from "../documents/queries/searchPosts.query";
 import UploadPost from "./UploadPost";
+
+const SearchPostsContainer = styled.div`
+  margin-top: 100px;
+`;
 
 const SearchPosts = () => {
   const uploadPostPathMath: PathMatch<"keyword"> | null = useMatch(
@@ -19,7 +24,7 @@ const SearchPosts = () => {
   });
 
   return (
-    <div>
+    <SearchPostsContainer>
       <AnimatePresence>{uploadPostPathMath && <UploadPost />}</AnimatePresence>
       <PageTitle title="Search"></PageTitle>
       {data === undefined
@@ -29,7 +34,7 @@ const SearchPosts = () => {
             <Post key={post.id} {...post} />
           ))
         : `"${keyword}" ${data?.searchPosts?.message}`}
-    </div>
+    </SearchPostsContainer>
   );
 };
 export default SearchPosts;

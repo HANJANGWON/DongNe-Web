@@ -18,7 +18,11 @@ interface FormData {
 }
 
 const SHeader = styled.header`
+  position: fixed;
+  top: 0;
   width: 100%;
+  z-index: 1;
+  padding-bottom: 10px;
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
   background-color: ${(props) => props.theme.bgColor};
   padding: 18px 0px;

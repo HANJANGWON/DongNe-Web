@@ -13,6 +13,7 @@ export const lightTheme: DefaultTheme = {
   borderAccent: "#2c2c2c",
   inputBgColor: "#fafafa",
   deleteColor: "#ed4956",
+  HomeInfoContainerColor: "#eff6fa",
 };
 
 export const darkTheme: DefaultTheme = {
@@ -26,6 +27,7 @@ export const darkTheme: DefaultTheme = {
   FatLink: "rgb(180, 180, 180)",
   inputBgColor: "black",
   deleteColor: "#ed4956",
+  HomeInfoContainerColor: "#3d3d3d",
 };
 
 export const GlobalStyles = createGlobalStyle`

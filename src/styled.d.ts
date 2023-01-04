@@ -13,5 +13,6 @@ declare module "styled-components" {
     bgContainerColor?: string;
     inputBgColor?: string;
     deleteColor?: string;
+    HomeInfoContainerColor?: string;
   }
 }
