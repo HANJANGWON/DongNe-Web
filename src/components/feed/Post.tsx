@@ -124,7 +124,6 @@ const Post = ({
   };
 
   const updateToggleLike = (cache: any, result: any) => {
-    console.log("post ", cache);
     const {
       data: {
         toggleLike: { ok },
