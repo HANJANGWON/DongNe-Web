@@ -153,15 +153,20 @@ const PhotoCaption = styled.textarea`
 const UploadPost = () => {
   const { data: userData } = useUser();
   const updateUploadPost = (cache: any, result: any) => {
+    console.log("upload ", cache);
     const {
       data: { uploadPost },
     } = result;
     if (uploadPost.id) {
+      const newPost = {
+        __ref: `Post:${uploadPost.id}`,
+      };
+
       cache.modify({
         id: "ROOT_QUERY",
         fields: {
           seeFeed(prev: any) {
-            return [uploadPost, ...prev];
+            return [newPost, ...prev];
           },
         },
       });

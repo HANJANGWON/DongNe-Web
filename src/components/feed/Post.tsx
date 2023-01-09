@@ -124,6 +124,7 @@ const Post = ({
   };
 
   const updateToggleLike = (cache: any, result: any) => {
+    console.log("post ", cache);
     const {
       data: {
         toggleLike: { ok },
@@ -145,14 +146,14 @@ const Post = ({
           },
         },
       });
-      cache.modify({
-        id: "ROOT_QUERY",
-        fields: {
-          seeFeed(prev: any) {
-            return !prev;
-          },
-        },
-      });
+      // cache.modify({
+      //   id: "ROOT_QUERY",
+      //   fields: {
+      //     seeFeed(prev: any) {
+      //       return prev;
+      //     },
+      //   },
+      // });
     }
   };
   const [toggleLikeMutation] = useMutation(TOGGLE_LIKE_MUTATION, {
