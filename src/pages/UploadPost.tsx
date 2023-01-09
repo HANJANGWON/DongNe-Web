@@ -153,7 +153,6 @@ const PhotoCaption = styled.textarea`
 const UploadPost = () => {
   const { data: userData } = useUser();
   const updateUploadPost = (cache: any, result: any) => {
-    console.log("upload ", cache);
     const {
       data: { uploadPost },
     } = result;
