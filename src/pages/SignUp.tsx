@@ -67,7 +67,7 @@ const SignUp = () => {
           </FontAwesome>
           <SubTitle>동네를 이용하고 싶다면 가입하세요.</SubTitle>
         </HeaderContainer>
-        <form onSubmit={handleSubmit(onSubmitValid)}>
+        <form onSubmit={handleSubmit(onSubmitValid)} autoComplete="off">
           <Input
             {...register("username", {
               required: "아이디를 입력해 주세요.",

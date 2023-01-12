@@ -100,7 +100,7 @@ const Login = () => {
           <SubTitle>동네에 오신걸 환영합니다</SubTitle>
         </HeaderContainer>
         <Notification message={state?.message} />
-        <form onSubmit={handleSubmit(onSubmitValid)}>
+        <form onSubmit={handleSubmit(onSubmitValid)} autoComplete="off">
           <Input
             {...register("username", {
               required: "아이디를 입력해 주세요.",
